@@ -4,18 +4,15 @@
 
 ### Know where every rupee goes.
 
-A fast, good-looking **Income & Expense Calculator** built with plain HTML, CSS and JavaScript.
-No frameworks. No backend. Your data stays in **your** browser.
+A fast, good-looking **Income & Expense Calculator** built with plain HTML, CSS and JavaScript[cite: 8].  
+No frameworks. No backend. Your data stays in **your** browser[cite: 8].
 
-[**🚀 Live Demo**](<your Netlify URL>) &nbsp;•&nbsp; [**📂 Source Code**](<your GitHub repo URL>)
+[**🚀 Live Demo**](https://paisa-todo-app.netlify.app) &nbsp;•&nbsp; [**📂 Source Code**](https://github.com/kowsalyadevivijay-cloud/Todo-app)[cite: 8, 9]
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
 ![localStorage](https://img.shields.io/badge/Storage-localStorage-5b5bf0)
-
-<!-- Add a screenshot of your app here:
-![Paisa Tracker screenshot](screenshot.png) -->
 
 </div>
 
@@ -70,13 +67,13 @@ No frameworks. No backend. Your data stays in **your** browser.
 
 ## 📁 Project structure
 
-```
-paisa-tracker/
+```text
+Todo-app/
 ├── index.html   → page structure
 ├── style.css    → styling, dark mode, responsive layout
 ├── script.js    → CRUD, filters, charts, localStorage
-└── README.md    → you are here
-```
+└── Readme       → you are here
+```[cite: 2, 8]
 
 ---
 
@@ -85,8 +82,8 @@ paisa-tracker/
 1. Download or clone the project
 
    ```bash
-   git clone <your GitHub repo URL>
-   ```
+   git clone [https://github.com/kowsalyadevivijay-cloud/Todo-app.git](https://github.com/kowsalyadevivijay-cloud/Todo-app.git)
+   ```[cite: 8]
 
 2. Open the folder and double-click `index.html`
 
@@ -105,20 +102,3 @@ That's it. There is nothing to install and no build step.
 7. Want a fresh start? **Delete all** in the sidebar wipes everything (it asks first).
 
 ---
-
-## 💡 What I learned
-
-- Building full CRUD with plain JavaScript
-- Keeping data in `localStorage` and loading it back safely
-- Drawing charts with just CSS and SVG
-- Designing a layout that works on every screen size
-
----
-
-<div align="center">
-
-Made with ☕ and a lot of curiosity.
-
-**If you like it, give it a ⭐**
-
-</div>
