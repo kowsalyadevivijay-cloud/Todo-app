@@ -1,0 +1,124 @@
+<div align="center">
+
+# 💸 Paisa Tracker
+
+### Know where every rupee goes.
+
+A fast, good-looking **Income & Expense Calculator** built with plain HTML, CSS and JavaScript.
+No frameworks. No backend. Your data stays in **your** browser.
+
+[**🚀 Live Demo**](<your Netlify URL>) &nbsp;•&nbsp; [**📂 Source Code**](<your GitHub repo URL>)
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+![localStorage](https://img.shields.io/badge/Storage-localStorage-5b5bf0)
+
+<!-- Add a screenshot of your app here:
+![Paisa Tracker screenshot](screenshot.png) -->
+
+</div>
+
+---
+
+## ✨ What can it do?
+
+### The essentials
+| | Feature |
+|---|---|
+| ➕ | **Create** income and expense entries (amount, description, category, date & time) |
+| 👀 | **Read** all entries in a live-updating list |
+| ✏️ | **Update** any entry with the edit button |
+| 🗑️ | **Delete** any entry with the delete button |
+| 📊 | **Totals at the top**: total income, total expenses and net balance |
+| 🔘 | **Radio filters**: `All` / `Income` / `Expense` |
+| ♻️ | **Reset button** in the form clears the input fields |
+| 💾 | **localStorage**: your data is still there after closing the browser |
+| 📱 | **Responsive**: works on desktop, tablet and mobile |
+
+### Bonus extras
+- 🌙 Dark mode
+- 🎯 Monthly budget with a progress bar and "runway" card
+- 📈 Yearly bar chart (income vs expense) and a category donut chart
+- 🔍 Search across descriptions and categories
+- 🗓️ Time filter for the totals: All time, Today, Last 7 days, This month, This year
+- 📤 Export to CSV and JSON backup, 📥 import from `.xlsx`, `.csv` or `.json`
+- ✨ Smooth animations and a custom cursor effect on desktop
+- ₹ Indian rupee formatting (e.g. ₹1,25,000)
+
+---
+
+## ⌨️ Keyboard shortcuts
+
+| Key | Action |
+|---|---|
+| `N` | Open the new transaction form |
+| `/` | Jump to the search box |
+| `Esc` | Close the form, the menu or the dialog |
+
+---
+
+## 🛠️ Tech stack
+
+- **HTML5** for the page structure
+- **CSS3** for the design, theming and responsive layout (Flexbox and Grid)
+- **JavaScript (ES6)** for the logic, with no frameworks
+- **localStorage** for saving data in the browser
+- **SheetJS** (only for Excel import and export)
+
+---
+
+## 📁 Project structure
+
+```
+paisa-tracker/
+├── index.html   → page structure
+├── style.css    → styling, dark mode, responsive layout
+├── script.js    → CRUD, filters, charts, localStorage
+└── README.md    → you are here
+```
+
+---
+
+## ▶️ Run it locally
+
+1. Download or clone the project
+
+   ```bash
+   git clone <your GitHub repo URL>
+   ```
+
+2. Open the folder and double-click `index.html`
+
+That's it. There is nothing to install and no build step.
+
+---
+
+## 🧭 How to use it
+
+1. Click **+ New Transaction** (or press `N`).
+2. Pick **Expense** or **Income**, then fill in the amount, description, category and date.
+3. Hit **Save**. The totals, charts and list update straight away.
+4. Use the **radio filters** to see only income or only expenses.
+5. Click ✏️ to edit an entry or 🗑️ to delete it.
+6. Made a mistake in the form? Press **Reset** to clear the fields.
+7. Want a fresh start? **Delete all** in the sidebar wipes everything (it asks first).
+
+---
+
+## 💡 What I learned
+
+- Building full CRUD with plain JavaScript
+- Keeping data in `localStorage` and loading it back safely
+- Drawing charts with just CSS and SVG
+- Designing a layout that works on every screen size
+
+---
+
+<div align="center">
+
+Made with ☕ and a lot of curiosity.
+
+**If you like it, give it a ⭐**
+
+</div>

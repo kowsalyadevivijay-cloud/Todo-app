@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#5b5bf0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paisa Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+  <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="brand">
+      <span class="brand-logo">₹</span>
+      <div>
+        <strong>Paisa <span class="pro">PRO</span></strong>
+        <small class="muted">Personal Treasury</small>
+      </div>
+    </div>
+
+    <p class="section-label">Workspace</p>
+    <nav>
+      <button class="nav-item active" data-target="summary"><span>▦</span> Overview</button>
+      <button class="nav-item" data-target="ledger"><span>⇅</span> Transactions <b id="txCount" class="count"></b></button>
+      <button class="nav-item" data-target="budgetCard"><span>◎</span> Budgets</button>
+      <button class="nav-item" data-target="charts"><span>▥</span> Analytics</button>
+    </nav>
+
+    <div class="runway">
+      <small>This month's runway</small>
+      <strong id="runwayValue"></strong>
+      <small id="runwayText"></small>
+    </div>
+
+    <div class="storage">
+      <p><strong>Saved on this device</strong></p>
+      <small id="storageText" class="muted"></small>
+      <div class="meter"><div id="storageBar"></div></div>
+      <div class="storage-buttons">
+        <button id="exportJsonBtn" class="tint-indigo">⭳ Backup</button>
+        <button id="importBtn" class="tint-green">⭱ Import</button>
+        <button id="resetBtn" class="tint-red">🗑 Delete all</button>
+      </div>
+      <div class="row small">
+        <small class="muted">.xlsx, .csv, .json</small>
+        <button id="sampleBtn" class="link">Sample sheet</button>
+      </div>
+      <input id="importInput" type="file" accept=".xlsx,.xls,.csv,.json" hidden>
+    </div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div>
+        <div class="title-row">
+          <button id="menuBtn" class="menu-btn" aria-label="Open dashboard menu">☰</button>
+          <h1 id="greeting"></h1>
+          <span id="greetingIcon" class="sun"></span>
+          <span id="dateChip" class="chip"></span>
+        </div>
+        <p class="muted">Here's your money at a glance</p>
+      </div>
+      <div class="actions">
+        <select id="periodSelect" aria-label="Time period">
+          <option value="all">All time</option>
+          <option value="today">Today</option>
+          <option value="week">Last 7 days</option>
+          <option value="month">This month</option>
+          <option value="year">This year</option>
+        </select>
+        <button id="exportCsvBtn">⭳ Export CSV</button>
+        <button id="themeBtn" aria-label="Toggle dark mode"></button>
+        <button id="newTxBtn" class="primary">+ New Transaction</button>
+      </div>
+    </header>
+
+    <section id="summary" class="grid four">
+      <article class="card stat green">
+        <div class="stat-head"><span>INCOME</span><i class="icon green">↗</i></div>
+        <div class="stat-body"><h3 id="incomeValue"></h3><div id="incomeSpark" class="spark"></div></div>
+        <span id="incomeBadge" class="trend"></span>
+      </article>
+
+      <article class="card stat red">
+        <div class="stat-head"><span>EXPENSES</span><i class="icon red">↙</i></div>
+        <div class="stat-body"><h3 id="expenseValue"></h3><div id="expenseSpark" class="spark"></div></div>
+        <span id="expenseBadge" class="trend"></span>
+      </article>
+
+      <article class="card stat indigo">
+        <div class="stat-head"><span>BALANCE</span><i class="icon indigo">▤</i></div>
+        <div class="stat-body"><h3 id="balanceValue"></h3><div id="balanceSpark" class="spark"></div></div>
+        <span id="savingsText" class="trend neutral"></span>
+      </article>
+
+      <article id="budgetCard" class="card stat violet">
+        <div class="stat-head"><span>MONTHLY BUDGET</span><b id="budgetPct" class="chip"></b></div>
+        <h3 id="budgetLeft"></h3>
+        <div class="meter big"><div id="budgetBar"></div></div>
+        <small id="budgetText" class="muted"></small>
+        <div class="row budget-form">
+          <input id="budgetInput" type="number" min="1" placeholder="₹ Budget">
+          <button id="setBudgetBtn" class="dark">Set</button>
+        </div>
+      </article>
+    </section>
+
+    <section id="charts" class="grid two">
+      <article class="card">
+        <div class="row">
+          <div class="row">
+            <h2>Overview</h2>
+            <div class="year-switch">
+              <button id="prevYearBtn" aria-label="Previous year">‹</button>
+              <strong id="yearLabel"></strong>
+              <button id="nextYearBtn" aria-label="Next year">›</button>
+            </div>
+          </div>
+          <div class="pills" id="seriesPills">
+            <button data-series="both">Both</button>
+            <button data-series="income">Income</button>
+            <button data-series="expense">Expense</button>
+          </div>
+        </div>
+
+        <div class="grid three mini">
+          <div class="mini-card"><small>Annual Income</small><strong id="annualIncome" class="green-text"></strong></div>
+          <div class="mini-card"><small>Annual Expense</small><strong id="annualExpense" class="red-text"></strong></div>
+          <div class="mini-card"><small>Net Cashflow</small><strong id="annualNet" class="indigo-text"></strong></div>
+        </div>
+
+        <div class="chart">
+          <div id="yAxis" class="y-axis"></div>
+          <div class="plot"><div id="bars" class="bars"></div></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="row">
+          <div>
+            <h2>Where it goes</h2>
+            <p id="donutSubtitle" class="muted"></p>
+          </div>
+          <span class="chip">INR</span>
+        </div>
+        <div class="donut-wrap">
+          <div id="donut" class="donut">
+            <div class="donut-center">
+              <small class="muted">Spent</small>
+              <strong id="donutAmount"></strong>
+            </div>
+          </div>
+        </div>
+        <div id="legend"></div>
+      </article>
+    </section>
+
+    <section id="ledger" class="card">
+      <div class="row">
+        <div>
+          <h2>Recent Transactions <span id="entryCount" class="chip blue"></span></h2>
+          <p class="muted">Audit trail of your recorded income and expenditures</p>
+        </div>
+        <div class="row">
+          <input id="searchInput" type="search" placeholder="🔍 Search…  (press /)">
+
+          <div class="pills" id="filterPills" role="radiogroup" aria-label="Filter transactions">
+            <label><input type="radio" name="txFilter" value="all"><span>All</span></label>
+            <label><input type="radio" name="txFilter" value="income"><span>Income</span></label>
+            <label><input type="radio" name="txFilter" value="expense"><span>Expense</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Transaction</th><th>Category</th><th>Date</th><th>Type</th>
+              <th class="right">Amount</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="drawer" class="overlay" hidden>
+    <form id="txForm" class="drawer">
+      <h2 id="drawerTitle">New transaction</h2>
+      <input type="hidden" id="editId">
+
+      <div class="pills type-pills">
+        <button type="button" data-type="expense">Expense</button>
+        <button type="button" data-type="income">Income</button>
+      </div>
+
+      <label>Amount (₹) <input id="txAmount" type="number" min="1" step="1" required></label>
+      <label>Description <input id="txDescription" type="text" maxlength="120" required></label>
+      <label>Category <select id="txCategory"></select></label>
+      <label>Date and time <input id="txDate" type="datetime-local" required></label>
+
+      <div class="row end">
+        <button type="button" id="resetFormBtn">Reset</button>
+        <button type="button" id="cancelBtn">Cancel</button>
+        <button type="submit" class="primary">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="resetModal" class="overlay center" hidden>
+    <div class="drawer modal">
+      <h2>Delete all data?</h2>
+      <p class="muted">Every transaction and your budget will be removed from this device. Take a backup first if you want to keep them.</p>
+      <div class="row end">
+        <button id="cancelResetBtn">Cancel</button>
+        <button id="confirmResetBtn" class="tint-red">Delete everything</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toasts"></div>
+  <script src="script.js"></script>
+</body>
+</html>
